@@ -65,7 +65,7 @@ public class StudentController {
         return new Student(id, firstName, lastName);
     }
 
-    // Spring boot Rest API that handles HTTP Post Request
+    // Spring boot Rest API that handles HTTP Post Request - creating new resource
     // @PostMapping and @RequestBody
     // http://localhost:8084/students/create
     @PostMapping("students/create")
@@ -76,5 +76,16 @@ public class StudentController {
         System.out.println(student.getLastName());
         return student;
     }
+
+    // Spring Boot Rest API that handles HTTP PUT Request - updating existing resource
+    // http://localhost:8084/students/3/update
+    @PutMapping("students/{id}/update")
+    public Student updateStudent(@RequestBody Student student,
+                                 @PathVariable("id") int studentId){
+        System.out.println(student.getFirstName());
+        System.out.println(student.getLastName());
+        return student; // return this student to the client
+    }
+
 
 }
