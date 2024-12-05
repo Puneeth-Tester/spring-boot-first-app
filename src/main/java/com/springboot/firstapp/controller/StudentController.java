@@ -82,6 +82,7 @@ public class StudentController {
     @PutMapping("students/{id}/update")
     public Student updateStudent(@RequestBody Student student,
                                  @PathVariable("id") int studentId){
+        //student.setId(studentId); - 3
         System.out.println(student.getFirstName());
         System.out.println(student.getLastName());
         return student; // return this student to the client
