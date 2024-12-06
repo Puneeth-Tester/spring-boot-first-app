@@ -9,9 +9,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
+@RequestMapping("students")
 public class StudentController {
 
-    // http://localhost:8084/student
+    // http://localhost:8084/students/student
     @GetMapping("student")
     public ResponseEntity<Student> getStudent(){
         Student student = new Student(
@@ -28,7 +29,7 @@ public class StudentController {
     }
 
     // http://localhost:8084/students
-    @GetMapping("students")
+    @GetMapping
     public ResponseEntity<List<Student>> getStudents(){
         List<Student> students = new ArrayList<>();
         students.add(new Student(1, "Puneeth", "Kumar"));
@@ -40,7 +41,7 @@ public class StudentController {
     // Spring Boot Rest API with Path Variable
     // {id} - URI template variable
     // http://localhost:8084/students/1
-    @GetMapping("students/{id}")
+    @GetMapping("{id}")
     //public Student studentPathVariable(@PathVariable int id){
     public ResponseEntity<Student> studentPathVariable(@PathVariable("id") int studentId){
         Student student = new Student(studentId, "Puneeth", "Kumar");
@@ -48,7 +49,7 @@ public class StudentController {
     }
 
     // http://localhost:8084/students/1/Puneeth/Kumar
-    @GetMapping("students/{id}/{first-name}/{last-name}")
+    @GetMapping("{id}/{first-name}/{last-name}")
     public ResponseEntity<Student> studentPathVariable(
             @PathVariable("id") int studentId,
             @PathVariable("first-name") String studentFirstName,
@@ -59,14 +60,14 @@ public class StudentController {
 
     // Spring Boot Rest API with Request Param
     // http://localhost:8084/students/query?id=1
-    @GetMapping("students/query")
+    @GetMapping("query")
     public ResponseEntity<Student> studentRequestVariable(@RequestParam int id){
         Student student = new Student(id, "Asha", "Kiran");
         return ResponseEntity.ok(student);
     }
 
     // http://localhost:8084/students/multi-query?id=1&firstName=Asha&lastName=Kiran
-    @GetMapping("students/multi-query")
+    @GetMapping("multi-query")
     public ResponseEntity<Student> studentRequestVariable(
             @RequestParam int id,
             @RequestParam String firstName,
@@ -78,7 +79,7 @@ public class StudentController {
     // Spring boot Rest API that handles HTTP Post Request - creating new resource
     // @PostMapping and @RequestBody
     // http://localhost:8084/students/create
-    @PostMapping("students/create")
+    @PostMapping("create")
     //@ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<Student> createStudent(@RequestBody Student student){
         System.out.println(student.getId());
@@ -89,7 +90,7 @@ public class StudentController {
 
     // Spring Boot Rest API that handles HTTP PUT Request - updating existing resource
     // http://localhost:8084/students/3/update
-    @PutMapping("students/{id}/update")
+    @PutMapping("{id}/update")
     public ResponseEntity<Student> updateStudent(@RequestBody Student student,
                                  @PathVariable("id") int studentId){
         //student.setId(studentId); - 3
@@ -99,7 +100,7 @@ public class StudentController {
     }
 
     // Spring Boot Rest API that handles HTTP DELETE Request - deleting the existing resource
-    @DeleteMapping("student/{id}/delete")
+    @DeleteMapping("{id}/delete")
     public ResponseEntity<String> deleteStudent(@PathVariable("id") int studentId){
         System.out.println(studentId);
         return ResponseEntity.ok("Student deleted successfully!");
